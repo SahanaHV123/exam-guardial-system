@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Guard AI | Control Center</title>
+  <link rel="stylesheet" href="style.css">
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@700&family=Rajdhani:wght@400;600;700&display=swap"
+    rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.css" rel="stylesheet" />
+</head>
+
+<body>
+  <nav>
+    <div class="logo">GUARD AI</div>
+    <ul>
+      <li><a href="index.html">DASHBOARD</a></li>
+      <li><a href="feature.html">FEATURES</a></li>
+    </ul>
+  </nav>
+
+  <div class="dashboard-container">
+    <header class="hero-header" data-aos="fade-down">
+      <h1>Guard AI</h1>
+      <p>AI-Powered Remote Proctoring & Surveillance</p>
+
+      <div class="status-indicator">
+        <div class="status-dot"></div>
+        <span id="system-status">SYSTEM READY</span>
+      </div>
+    </header>
+
+    <div class="glass-card control-panel" data-aos="zoom-in">
+      <button id="start-guard-ai" class="start-button">INITIALIZE GUARD AI</button>
+      <button id="stop-guard-ai" class="stop-button">TERMINATE SESSION</button>
+      <button id="download-report" class="download-button" disabled>EXPORT REPORT</button>
+    </div>
+
+    <div class="info-grid">
+      <div class="glass-card info-card" data-aos="fade-up" data-aos-delay="100">
+        <h2>🚨 THREAT DETECTION</h2>
+        <p>Real-time monitoring of unauthorized behavior:</p>
+        <ul>
+          <li>Multiple faces detected</li>
+          <li>Suspicious gaze aversion</li>
+          <li>Unauthorized speech</li>
+        </ul>
+      </div>
+
+      <div class="glass-card info-card" data-aos="fade-up" data-aos-delay="200">
+        <h2>🛡️ SYSTEM SECURITY</h2>
+        <p>Comprehensive environment scanning:</p>
+        <ul>
+          <li>Browser tab monitoring</li>
+          <li>Background audio analysis</li>
+          <li>Device integrity checks</li>
+        </ul>
+      </div>
+
+      <div class="glass-card info-card" data-aos="fade-up" data-aos-delay="300">
+        <h2>📊 INTELLIGENCE LOGS</h2>
+        <p>Detailed session reporting:</p>
+        <ul>
+          <li>Timestamped incident logs</li>
+          <li>Visual evidence capture</li>
+          <li>PDF summary generation</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <footer>
+    <p>SECURE PROCTORING SYSTEM v1.0 | GUARD AI</p>
+  </footer>
+
+  <script src="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.js"></script>
+  <script>
+    AOS.init({
+      duration: 800,
+      once: true
+    });
+
+    const statusText = document.getElementById("system-status");
+    const downloadButton = document.getElementById("download-report");
+
+    document.getElementById("start-guard-ai").addEventListener("click", () => {
+      statusText.textContent = "INITIALIZING...";
+      fetch("/start-guard-ai", { method: "POST" })
+        .then(r => r.json())
+        .then(data => {
+          if (data.status === "success") {
+            statusText.textContent = "MONITORING ACTIVE";
+            statusText.style.color = "#38ef7d";
+            document.querySelector('.status-dot').style.backgroundColor = "#38ef7d";
+          } else {
+            alert("Error: " + data.message);
+            statusText.textContent = "SYSTEM READY";
+          }
+        })
+        .catch(e => alert("Connection Error: " + e.message));
+    });
+
+    document.getElementById("stop-guard-ai").addEventListener("click", () => {
+      statusText.textContent = "TERMINATING...";
+      fetch("/stop-guard-ai", { method: "POST" })
+        .then(r => r.json())
+        .then(data => {
+          if (data.status === "success") {
+            statusText.textContent = "SESSION ENDED";
+            statusText.style.color = "#ef473a";
+            document.querySelector('.status-dot').style.backgroundColor = "#ef473a";
+            downloadButton.disabled = false;
+          } else {
+            alert("Error: " + data.message);
+          }
+        })
+        .catch(e => alert("Connection Error: " + e.message));
+    });
+
+    document.getElementById("download-report").addEventListener("click", () => {
+      window.location.href = "/download-report";
+    });
+  </script>
+</body>
+
+</html>
