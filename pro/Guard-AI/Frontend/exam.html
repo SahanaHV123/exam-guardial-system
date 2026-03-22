@@ -1,0 +1,512 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sentinel Client - Exam Interface</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-color: #0f172a;
+            --container-bg: #1e293b;
+            --text-main: #f8fafc;
+            --text-muted: #94a3b8;
+            --accent: #3b82f6;
+            --danger: #ef4444;
+            --success: #10b981;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: var(--bg-color);
+            color: var(--text-main);
+            margin: 0;
+            padding: 0;
+            min-height: 100vh;
+            user-select: none; /* Prevent text selection */
+        }
+
+        .exam-container {
+            background: var(--container-bg);
+            padding: 40px;
+            width: 100%;
+            min-height: 100vh;
+            box-sizing: border-box;
+            position: relative;
+        }
+
+        .exam-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+            padding-bottom: 20px;
+            margin-bottom: 30px;
+        }
+
+        .exam-title {
+            margin: 0;
+            font-size: 24px;
+            font-weight: 700;
+        }
+
+        .timer {
+            font-size: 20px;
+            font-weight: 600;
+            color: var(--accent);
+            background: rgba(59, 130, 246, 0.1);
+            padding: 8px 16px;
+            border-radius: 8px;
+        }
+
+        .question-block {
+            margin-bottom: 30px;
+        }
+
+        .question-text {
+            font-size: 18px;
+            line-height: 1.6;
+            margin-bottom: 20px;
+        }
+
+        .options-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .option-item {
+            display: flex;
+            align-items: center;
+            padding: 15px;
+            background: rgba(255,255,255,0.05);
+            margin-bottom: 10px;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: background 0.2s;
+            border: 1px solid transparent;
+        }
+
+        .option-item:hover {
+            background: rgba(255,255,255,0.1);
+            border-color: var(--accent);
+        }
+
+        .option-item input[type="radio"] {
+            margin-right: 15px;
+            accent-color: var(--accent);
+            width: 18px;
+            height: 18px;
+        }
+
+        .submit-btn {
+            background: var(--accent);
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            font-size: 16px;
+            font-weight: 600;
+            border-radius: 8px;
+            cursor: pointer;
+            width: 100%;
+            transition: background 0.2s;
+        }
+
+        .submit-btn:hover {
+            background: #2563eb;
+        }
+
+        .toast-container {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            z-index: 9999;
+        }
+
+        .toast {
+            background: var(--danger);
+            color: white;
+            padding: 15px 25px;
+            border-radius: 8px;
+            margin-bottom: 10px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+            font-weight: 600;
+            opacity: 0;
+            transform: translateX(100%);
+            animation: slideIn 0.3s forwards, fadeOut 0.3s 3s forwards;
+        }
+
+        @keyframes slideIn {
+            to { opacity: 1; transform: translateX(0); }
+        }
+
+        @keyframes fadeOut {
+            to { opacity: 0; transform: translateY(-20px); }
+        }
+
+        .start-guard-overlay {
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(15, 23, 42, 0.95);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            z-index: 100;
+            backdrop-filter: blur(5px);
+        }
+
+        .start-guard-overlay p {
+            color: var(--text-muted);
+            margin-top: 15px;
+            text-align: center;
+            max-width: 80%;
+        }
+
+    </style>
+</head>
+<body>
+
+    <div class="toast-container" id="toastArea"></div>
+
+    <div id="cameraFeedContainer" style="display: none; position: fixed; top: 15px; left: 15px; text-align: center; z-index: 9999; background: var(--container-bg); padding: 10px; border-radius: 12px; border: 1px solid rgba(255,255,255,0.1); box-shadow: 0 10px 25px rgba(0,0,0,0.5);">
+        <div style="font-size: 12px; color: var(--accent); margin-bottom: 8px; font-weight: bold; letter-spacing: 1px;">LIVE PROCTORING SENSOR</div>
+        <img id="cameraFeed" src="" style="width: 200px; border-radius: 8px; border: 2px solid var(--accent); box-shadow: 0 0 10px rgba(59, 130, 246, 0.4);">
+    </div>
+
+    <div class="exam-container" id="examWorkspace">
+        
+        <div class="start-guard-overlay" id="preExamOverlay">
+            <h2>Sentinel Protection Required</h2>
+            <p>This exam is protected by the Guard-AI Proctoring System. You must start the proctoring service to begin the exam. Your camera and microphone will be monitored. Stay in full screen, do not tab out, and do not use keyboard shortcuts.</p>
+            <input type="text" id="studentNameInput" placeholder="Enter Student Name" style="margin-top: 15px; padding: 10px; font-size: 16px; border-radius: 5px; border: none; text-align: center; font-weight: bold; width: 250px;">
+            <input type="text" id="regNoInput" placeholder="Enter Registration No." style="margin-top: 15px; padding: 10px; font-size: 16px; border-radius: 5px; border: none; text-align: center; font-weight: bold; width: 250px;">
+            <input type="text" id="secretCodeInputExam" placeholder="Enter Secret Code" style="margin-top: 15px; padding: 10px; font-size: 16px; border-radius: 5px; border: none; text-align: center; font-weight: bold; width: 200px;">
+            <button class="submit-btn" style="width: auto; margin-top: 20px;" onclick="initializeExam()">Start Proctoring & Enter Exam</button>
+        </div>
+
+        <div class="exam-header">
+            <h1 class="exam-title">Advanced Computer Science</h1>
+            <div class="timer" id="clock">60:00</div>
+        </div>
+
+        <div id="questionsContainer">
+            <!-- Questions will be injected here dynamically -->
+        </div>
+
+        <button class="submit-btn" onclick="submitExam()">Submit Exam</button>
+    </div>
+
+    <script>
+        // Global State
+        let examActive = false;
+        let blurStartTime = 0;
+        let lastActivityTime = Date.now();
+        let idleInterval;
+        let idleViolationsCount = 0;
+        let currentStudentName = "";
+        let currentRegNo = "";
+        let lastViolationCount = 0;
+
+        function playVoiceAssistant(message) {
+            if ("speechSynthesis" in window) {
+                // Cancel current speech to give immediate feedback on the new violation
+                window.speechSynthesis.cancel();
+                const utterance = new SpeechSynthesisUtterance(message);
+                utterance.rate = 1.0;
+                utterance.pitch = 1.0;
+                // Optional: Select a specific voice if desired, default is usually fine
+                window.speechSynthesis.speak(utterance);
+            }
+        }
+
+        function showToast(message) {
+            const toastArea = document.getElementById("toastArea");
+            const toast = document.createElement("div");
+            toast.className = "toast";
+            toast.textContent = "🚨 " + message;
+            toastArea.appendChild(toast);
+            setTimeout(() => toast.remove(), 3500);
+            
+            // Voice assistant to read out the violation
+            playVoiceAssistant(message);
+        }
+
+        function logViolation(message, penalty) {
+            if (!examActive) return;
+            console.warn("Violation:", message);
+            showToast(message);
+            // Post violation to server; server response length will naturally advance lastViolationCount later
+            fetch("/api/log_violation", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ message, penalty, studentName: currentStudentName, regNo: currentRegNo })
+            }).catch(e => console.error("Logging error", e));
+        }
+
+        // Poll for AI detections from backend
+        setInterval(() => {
+            if (!examActive || !currentRegNo) return;
+            fetch("/api/get_violations")
+            .then(r => r.json())
+            .then(data => {
+                const students = data.students || {};
+                const student = students[currentRegNo];
+                if (student && student.violations) {
+                    const studentViolations = student.violations;
+                    if (studentViolations.length > lastViolationCount) {
+                        for (let i = lastViolationCount; i < studentViolations.length; i++) {
+                            const newViolation = studentViolations[i].message;
+                            // Only trigger toast for backend "AI:" violations, client side already handled
+                            if (newViolation.startsWith("AI:")) {
+                                showToast(newViolation);
+                            }
+                        }
+                        lastViolationCount = studentViolations.length;
+                    }
+                }
+            })
+            .catch(e => console.error("Error polling violations:", e));
+        }, 2000);
+
+        function initializeExam() {
+            const studentName = document.getElementById("studentNameInput").value.trim();
+            const regNo = document.getElementById("regNoInput").value.trim();
+            const secretCode = document.getElementById("secretCodeInputExam").value.trim();
+            
+            if (!studentName || !regNo) {
+                alert("Please enter both Student Name and Registration Number to proceed.");
+                return;
+            }
+
+            if (!secretCode) {
+                alert("Please enter the secret code to proceed.");
+                return;
+            }
+
+            currentStudentName = studentName;
+            currentRegNo = regNo;
+
+            // Document Fullscreen request
+            if(document.documentElement.requestFullscreen) {
+                document.documentElement.requestFullscreen().catch(e => console.log(e));
+            }
+
+            // Verify Code First
+            fetch("/api/verify_code", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ 
+                    secret_code: secretCode,
+                    studentName: currentStudentName,
+                    regNo: currentRegNo 
+                })
+            })
+            .then(r => r.json())
+            .then(data => {
+                if (data.status === "success") {
+                    renderQuestions(data.questions);
+                    startGuardAI();
+                } else {
+                    alert("Authentication Failed: " + data.message);
+                }
+            })
+            .catch(err => {
+                alert("Network error: " + err.message);
+            });
+        }
+
+        function renderQuestions(questions) {
+            const container = document.getElementById("questionsContainer");
+            container.innerHTML = "";
+            questions.forEach((q, index) => {
+                let optionsHtml = "";
+                for(let [key, val] of Object.entries(q.options)) {
+                    optionsHtml += `<label class="option-item"><input type="radio" name="${q.id}" value="${key}"> ${key}: ${val}</label>`;
+                }
+                container.innerHTML += `
+                    <div class="question-block">
+                        <div class="question-text">
+                            <strong>Question ${index + 1}:</strong> ${q.question}
+                        </div>
+                        <ul class="options-list">
+                            ${optionsHtml}
+                        </ul>
+                    </div>
+                `;
+            });
+        }
+
+        function startGuardAI() {
+            // Trigger Guard-AI Camera Backend
+            fetch("/start-guard-ai", { 
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ studentName: currentStudentName, regNo: currentRegNo })
+            })
+                .then(r => r.json())
+                .then(data => {
+                    document.getElementById("preExamOverlay").style.display = "none";
+                    document.getElementById("cameraFeedContainer").style.display = "block";
+                    document.getElementById("cameraFeed").src = "/video_feed";
+                    examActive = true;
+                    lastActivityTime = Date.now();
+                    startIdleTimer();
+                    showToast("Proctoring Started. Exam Live.");
+                })
+                .catch(err => {
+                    alert("Failed to start AI Backend: " + err.message);
+                });
+        }
+
+        function submitExam() {
+            examActive = false;
+            fetch("/stop-guard-ai", { method: "POST" })
+            .then(r => r.json())
+            .then(() => {
+                document.getElementById("examWorkspace").innerHTML = `
+                    <div style="text-align: center; margin-top: 50px; padding: 40px;">
+                        <h2 style="color: var(--success); font-size: 28px; margin-bottom: 20px;">Exam Submitted Successfully</h2>
+                        <p style="font-size: 18px; margin-bottom: 40px; color: var(--text-muted);">Your session has been terminated and recorded. Your trust score and proctoring logs have been compiled.</p>
+                        <button class="submit-btn" onclick="window.location.href='/download-report?regNo=${currentRegNo}'" style="width: auto; padding: 15px 30px; font-size: 18px; background: var(--success);">
+                            📄 Download Final Report
+                        </button>
+                    </div>
+                `;
+            });
+        }
+
+        // --- 1. Tab Switching (The Blur Event) ---
+        document.addEventListener("visibilitychange", () => {
+            if (!examActive) return;
+            if (document.visibilityState === "hidden") {
+                blurStartTime = Date.now();
+                if (confirm("⚠️ WARNING: Tab switching or minimizing the window is strictly prohibited! Do you want to submit and quit the exam to switch tabs?")) {
+                    submitExam();
+                }
+            } else if (document.visibilityState === "visible") {
+                let secondsAway = Math.round((Date.now() - blurStartTime) / 1000);
+                if (secondsAway > 0) {
+                    logViolation(`Tab switched away for ${secondsAway} seconds`, secondsAway * 2);
+                }
+            }
+        });
+
+        // Alternate tracking for window blur
+        window.addEventListener("blur", () => {
+            if (!examActive) return;
+            blurStartTime = Date.now();
+            if (confirm("⚠️ WARNING: Clicking outside the exam or switching apps is strictly prohibited! Do you want to submit and quit the exam to switch apps?")) {
+                submitExam();
+            }
+        });
+        window.addEventListener("focus", () => {
+            if (!examActive || blurStartTime === 0) return;
+            let secondsAway = Math.round((Date.now() - blurStartTime) / 1000);
+            if (secondsAway > 0) {
+                logViolation(`Window out of focus for ${secondsAway} seconds`, secondsAway * 2);
+            }
+            blurStartTime = 0;
+        });
+
+        // --- 2. Window Resizing ---
+        let resizeTimeout;
+        window.addEventListener("resize", () => {
+            if (!examActive) return;
+            clearTimeout(resizeTimeout);
+            resizeTimeout = setTimeout(() => {
+                const screenWidth = window.screen.width;
+                const screenHeight = window.screen.height;
+                const currentWidth = window.innerWidth;
+                const currentHeight = window.innerHeight;
+
+                if (currentWidth < screenWidth * 0.8 || currentHeight < screenHeight * 0.8) {
+                    logViolation(`Browser window resized below 80% of screen size. Detected size: ${currentWidth}x${currentHeight}`, 10);
+                    alert("⚠️ WARNING: Exiting Fullscreen or resizing the Exam Window is not allowed!");
+                    // Force fullscreen back if possible
+                    if(document.documentElement.requestFullscreen) {
+                        document.documentElement.requestFullscreen().catch(e => console.log("Fullscreen request failed", e));
+                    }
+                }
+            }, 500); // debounce
+        });
+
+        // --- 3. Keyboard Hijacking ---
+        document.addEventListener("keydown", (e) => {
+            if (!examActive) return;
+            
+            // F12 Inspector
+            if (e.key === "F12" || e.keyCode === 123) {
+                e.preventDefault();
+                logViolation("Attempted to open Developer Tools (F12)", 15);
+            }
+            // Control combinations
+            if (e.ctrlKey || e.metaKey) {
+                if (e.key === "c" || e.key === "C") {
+                    e.preventDefault();
+                    logViolation("Attempted to Copy content (Ctrl+C)", 5);
+                }
+                if (e.key === "v" || e.key === "V") {
+                    e.preventDefault();
+                    logViolation("Attempted to Paste content (Ctrl+V)", 5);
+                }
+                if (e.key === "p" || e.key === "P") {
+                    e.preventDefault();
+                    logViolation("Attempted to Print page (Ctrl+P)", 10);
+                }
+            }
+            // PrintScreen via Keyup wrapper below handled mostly here, but OS intercepts it usually
+        });
+
+        document.addEventListener("keyup", (e) => {
+            if (!examActive) return;
+            if (e.key === "PrintScreen") {
+                logViolation("Attempted to take a PrintScreen screenshot", 20);
+                // Copy dummy to clipboard to overwrite
+                navigator.clipboard.writeText("Screen capture disabled by Sentinel Client.");
+            }
+        });
+
+        document.addEventListener("copy", (e) => { e.preventDefault(); logViolation("Copy event blocked", 5); });
+        document.addEventListener("paste", (e) => { e.preventDefault(); logViolation("Paste event blocked", 5); });
+        document.addEventListener("contextmenu", (e) => { e.preventDefault(); logViolation("Right-click context menu blocked", 2); });
+
+        // --- 4. Idle Detection ---
+        function resetIdleTimer() {
+            if (!examActive) return;
+            lastActivityTime = Date.now();
+        }
+        
+        // Listen to activity
+        window.addEventListener('mousemove', resetIdleTimer);
+        window.addEventListener('keydown', resetIdleTimer);
+        window.addEventListener('click', resetIdleTimer);
+        window.addEventListener('scroll', resetIdleTimer);
+
+        function startIdleTimer() {
+            idleInterval = setInterval(() => {
+                if (!examActive) return;
+                const idleSeconds = Math.round((Date.now() - lastActivityTime) / 1000);
+                if (idleSeconds > 60) {
+                    idleViolationsCount++;
+                    logViolation(`Idle detected. No user activity for over ${idleSeconds} seconds.`, 15);
+                    alert("⚠️ WARNING: You have been idle for over 60 seconds Please interact with the exam to avoid further penalties.");
+                    // Reset to avoid spam, user has to interact again
+                    lastActivityTime = Date.now(); 
+                }
+            }, 5000); // Check every 5s
+        }
+
+        // Simple mock countdown clock
+        let timeLeft = 3600;
+        setInterval(() => {
+            if (!examActive) return;
+            timeLeft--;
+            const mins = Math.floor(timeLeft / 60).toString().padStart(2, '0');
+            const secs = (timeLeft % 60).toString().padStart(2, '0');
+            document.getElementById("clock").innerText = `${mins}:${secs}`;
+        }, 1000);
+
+    </script>
+</body>
+</html>

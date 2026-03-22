@@ -1,0 +1,13 @@
+.\app.py:4:1: F401 'signal' imported but unused
+.\app.py:36:5: F824 `global violations` is unused: name is never assigned in scope
+.\test_backend.py:14:9: F401 'cv2' imported but unused
+.\test_backend.py:21:9: F401 'mediapipe as mp' imported but unused
+.\test_backend.py:28:9: F401 'numpy as np' imported but unused
+.\test_backend.py:35:9: F401 'sounddevice as sd' imported but unused
+.\test_backend.py:42:9: F401 'psutil' imported but unused
+.\test_backend.py:49:9: F401 'fpdf.FPDF' imported but unused
+.\test_backend.py:56:9: F401 'flask.Flask' imported but unused
+.\test_backend.py:98:9: F401 'textwrap' imported but unused
+.\test_camera.py:2:1: F401 'sys' imported but unused
+.\test_mp.py:7:9: F401 'mediapipe.python.solutions as mps' imported but unused
+.\test_mp.py:9:1: F841 local variable 'e' is assigned to but never used

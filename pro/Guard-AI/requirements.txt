@@ -5,3 +5,4 @@ sounddevice
 psutil
 flask
 fpdf
+PyPDF2

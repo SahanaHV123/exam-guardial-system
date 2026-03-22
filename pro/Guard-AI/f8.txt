@@ -1,0 +1,114 @@
+main.py:14:1: F401 'textwrap' imported but unused
+main.py:17:1: F401 'sys' imported but unused
+main.py:27:39: W291 trailing whitespace
+main.py:28:24: W291 trailing whitespace
+main.py:63:1: E302 expected 2 blank lines, found 1
+main.py:70:1: E305 expected 2 blank lines after class or function definition, found 1
+main.py:74:1: E302 expected 2 blank lines, found 1
+main.py:78:80: E501 line too long (97 > 79 characters)
+main.py:85:80: E501 line too long (97 > 79 characters)
+main.py:87:1: E305 expected 2 blank lines after class or function definition, found 1
+main.py:90:1: E302 expected 2 blank lines, found 1
+main.py:96:1: E302 expected 2 blank lines, found 1
+main.py:100:1: E302 expected 2 blank lines, found 1
+main.py:106:1: E302 expected 2 blank lines, found 1
+main.py:118:80: E501 line too long (92 > 79 characters)
+main.py:128:1: E302 expected 2 blank lines, found 1
+main.py:132:1: W293 blank line contains whitespace
+main.py:138:1: W293 blank line contains whitespace
+main.py:146:80: E501 line too long (97 > 79 characters)
+main.py:147:80: E501 line too long (96 > 79 characters)
+main.py:169:80: E501 line too long (86 > 79 characters)
+main.py:170:1: W293 blank line contains whitespace
+main.py:177:1: W293 blank line contains whitespace
+main.py:184:1: W293 blank line contains whitespace
+main.py:190:80: E501 line too long (94 > 79 characters)
+main.py:198:1: W293 blank line contains whitespace
+main.py:199:80: E501 line too long (86 > 79 characters)
+main.py:200:80: E501 line too long (98 > 79 characters)
+main.py:201:80: E501 line too long (81 > 79 characters)
+main.py:202:80: E501 line too long (104 > 79 characters)
+main.py:211:1: W293 blank line contains whitespace
+main.py:220:1: W293 blank line contains whitespace
+main.py:225:1: W293 blank line contains whitespace
+main.py:228:80: E501 line too long (110 > 79 characters)
+main.py:231:1: W293 blank line contains whitespace
+main.py:240:1: W293 blank line contains whitespace
+main.py:248:1: W293 blank line contains whitespace
+main.py:253:1: W293 blank line contains whitespace
+main.py:256:80: E501 line too long (109 > 79 characters)
+main.py:259:1: W293 blank line contains whitespace
+main.py:268:1: W293 blank line contains whitespace
+main.py:275:1: W293 blank line contains whitespace
+main.py:282:1: W293 blank line contains whitespace
+main.py:291:1: W293 blank line contains whitespace
+main.py:298:1: W293 blank line contains whitespace
+main.py:302:80: E501 line too long (104 > 79 characters)
+main.py:311:80: E501 line too long (115 > 79 characters)
+main.py:312:24: F541 f-string is missing placeholders
+main.py:312:80: E501 line too long (112 > 79 characters)
+main.py:323:1: E302 expected 2 blank lines, found 1
+main.py:323:80: E501 line too long (80 > 79 characters)
+main.py:324:80: E501 line too long (110 > 79 characters)
+main.py:325:80: E501 line too long (110 > 79 characters)
+main.py:326:80: E501 line too long (96 > 79 characters)
+main.py:328:1: E302 expected 2 blank lines, found 1
+main.py:332:1: W293 blank line contains whitespace
+main.py:346:80: E501 line too long (101 > 79 characters)
+main.py:350:80: E501 line too long (80 > 79 characters)
+main.py:358:1: E302 expected 2 blank lines, found 1
+main.py:360:80: E501 line too long (102 > 79 characters)
+main.py:361:5: F841 local variable 'iris_points' is assigned to but never used
+main.py:361:80: E501 line too long (104 > 79 characters)
+main.py:369:80: E501 line too long (89 > 79 characters)
+main.py:388:1: E302 expected 2 blank lines, found 1
+main.py:391:18: F541 f-string is missing placeholders
+main.py:392:1: W293 blank line contains whitespace
+main.py:394:1: W293 blank line contains whitespace
+main.py:410:1: W293 blank line contains whitespace
+main.py:421:80: E501 line too long (80 > 79 characters)
+main.py:427:1: W293 blank line contains whitespace
+main.py:429:1: W293 blank line contains whitespace
+main.py:440:1: W293 blank line contains whitespace
+main.py:466:1: W293 blank line contains whitespace
+main.py:473:80: E501 line too long (102 > 79 characters)
+main.py:474:80: E501 line too long (84 > 79 characters)
+main.py:483:80: E501 line too long (91 > 79 characters)
+main.py:487:1: W293 blank line contains whitespace
+main.py:490:80: E501 line too long (131 > 79 characters)
+main.py:501:80: E501 line too long (84 > 79 characters)
+main.py:502:80: E501 line too long (84 > 79 characters)
+main.py:504:80: E501 line too long (97 > 79 characters)
+main.py:505:80: E501 line too long (83 > 79 characters)
+main.py:513:80: E501 line too long (110 > 79 characters)
+main.py:514:80: E501 line too long (113 > 79 characters)
+main.py:515:80: E501 line too long (119 > 79 characters)
+main.py:516:21: F841 local variable 'e' is assigned to but never used
+main.py:524:80: E501 line too long (84 > 79 characters)
+main.py:526:80: E501 line too long (122 > 79 characters)
+main.py:530:80: E501 line too long (81 > 79 characters)
+main.py:534:80: E501 line too long (95 > 79 characters)
+main.py:541:80: E501 line too long (108 > 79 characters)
+main.py:542:80: E501 line too long (115 > 79 characters)
+main.py:543:80: E501 line too long (117 > 79 characters)
+main.py:545:80: E501 line too long (97 > 79 characters)
+main.py:553:1: E302 expected 2 blank lines, found 1
+main.py:562:80: E501 line too long (124 > 79 characters)
+main.py:565:80: E501 line too long (114 > 79 characters)
+main.py:569:1: E302 expected 2 blank lines, found 1
+main.py:575:26: E701 multiple statements on one line (colon)
+main.py:576:1: W293 blank line contains whitespace
+main.py:577:80: E501 line too long (84 > 79 characters)
+main.py:579:1: W293 blank line contains whitespace
+main.py:581:80: E501 line too long (102 > 79 characters)
+main.py:585:80: E501 line too long (102 > 79 characters)
+main.py:587:80: E501 line too long (82 > 79 characters)
+main.py:589:80: E501 line too long (95 > 79 characters)
+main.py:590:80: E501 line too long (86 > 79 characters)
+main.py:593:1: E305 expected 2 blank lines after class or function definition, found 1
+main.py:593:1: E402 module level import not at top of file
+main.py:595:1: E302 expected 2 blank lines, found 1
+main.py:598:1: W293 blank line contains whitespace
+main.py:599:80: E501 line too long (82 > 79 characters)
+main.py:628:1: E305 expected 2 blank lines after class or function definition, found 1
+main.py:629:30: W292 no newline at end of file

@@ -1,0 +1,52 @@
+.\app.py:4:1: F401 'signal' imported but unused
+.\app.py:9:15: W291 trailing whitespace
+.\app.py:13:1: E302 expected 2 blank lines, found 1
+.\app.py:17:1: E302 expected 2 blank lines, found 1
+.\app.py:21:1: E302 expected 2 blank lines, found 1
+.\app.py:25:1: E302 expected 2 blank lines, found 1
+.\app.py:29:1: E302 expected 2 blank lines, found 1
+.\app.py:31:5: F824 `global violations` is unused: name is never assigned in scope
+.\app.py:35:1: W293 blank line contains whitespace
+.\app.py:45:1: E302 expected 2 blank lines, found 1
+.\app.py:49:1: E302 expected 2 blank lines, found 1
+.\app.py:56:1: E302 expected 2 blank lines, found 1
+.\app.py:70:1: E302 expected 2 blank lines, found 1
+.\app.py:83:1: W293 blank line contains whitespace
+.\app.py:91:1: E302 expected 2 blank lines, found 1
+.\app.py:99:1: E302 expected 2 blank lines, found 1
+.\app.py:119:1: E305 expected 2 blank lines after class or function definition, found 1
+.\app.py:120:35: W292 no newline at end of file
+.\test_audio.py:5:1: E302 expected 2 blank lines, found 1
+.\test_audio.py:12:1: E305 expected 2 blank lines after class or function definition, found 1
+.\test_backend.py:9:1: E302 expected 2 blank lines, found 1
+.\test_backend.py:13:9: F401 'cv2' imported but unused
+.\test_backend.py:18:1: W293 blank line contains whitespace
+.\test_backend.py:20:9: F401 'mediapipe as mp' imported but unused
+.\test_backend.py:25:1: W293 blank line contains whitespace
+.\test_backend.py:27:9: F401 'numpy as np' imported but unused
+.\test_backend.py:32:1: W293 blank line contains whitespace
+.\test_backend.py:34:9: F401 'sounddevice as sd' imported but unused
+.\test_backend.py:39:1: W293 blank line contains whitespace
+.\test_backend.py:41:9: F401 'psutil' imported but unused
+.\test_backend.py:46:1: W293 blank line contains whitespace
+.\test_backend.py:48:9: F401 'fpdf.FPDF' imported but unused
+.\test_backend.py:53:1: W293 blank line contains whitespace
+.\test_backend.py:55:9: F401 'flask.Flask' imported but unused
+.\test_backend.py:60:1: W293 blank line contains whitespace
+.\test_backend.py:63:1: E302 expected 2 blank lines, found 1
+.\test_backend.py:76:1: E302 expected 2 blank lines, found 1
+.\test_backend.py:89:1: E302 expected 2 blank lines, found 1
+.\test_backend.py:94:9: F401 'textwrap' imported but unused
+.\test_backend.py:95:1: W293 blank line contains whitespace
+.\test_backend.py:101:1: W293 blank line contains whitespace
+.\test_backend.py:105:1: W293 blank line contains whitespace
+.\test_backend.py:117:1: E302 expected 2 blank lines, found 1
+.\test_backend.py:121:1: W293 blank line contains whitespace
+.\test_backend.py:128:1: W293 blank line contains whitespace
+.\test_backend.py:134:1: W293 blank line contains whitespace
+.\test_backend.py:138:1: W293 blank line contains whitespace
+.\test_backend.py:145:1: W293 blank line contains whitespace
+.\test_backend.py:154:1: E305 expected 2 blank lines after class or function definition, found 1
+.\test_camera.py:2:1: F401 'sys' imported but unused
+.\test_mp.py:7:9: F401 'mediapipe.python.solutions as mps' imported but unused
+.\test_mp.py:9:1: F841 local variable 'e' is assigned to but never used

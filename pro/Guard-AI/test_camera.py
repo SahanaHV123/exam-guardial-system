@@ -1,9 +1,8 @@
-import cv2
-import sys
+import cv2  # type: ignore
 
 print("Testing Camera Access...")
 try:
-    cap = cv2.VideoCapture(0)
+    cap = cv2.VideoCapture(0, cv2.CAP_DSHOW)
     if not cap.isOpened():
         print("❌ Error: Could not open camera (Index 0).")
         print("  - Check permissions in System Settings > Privacy & Security > Camera")

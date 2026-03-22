@@ -1,6 +1,7 @@
-import sounddevice as sd
-import numpy as np
+import sounddevice as sd  # type: ignore
+import numpy as np  # type: ignore
 import time
+
 
 def print_sound_level(indata, frames, time, status):
     if status:
@@ -8,6 +9,7 @@ def print_sound_level(indata, frames, time, status):
     volume_norm = np.linalg.norm(indata) * 10
     bar = "|" * int(volume_norm * 50)
     print(f"\rVolume: {volume_norm:.4f} {bar}", end="", flush=True)
+
 
 print("Monitoring audio levels... Press Ctrl+C to stop.")
 try:

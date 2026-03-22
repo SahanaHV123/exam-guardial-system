@@ -15,8 +15,10 @@
   <nav>
     <div class="logo">GUARD AI</div>
     <ul>
-      <li><a href="index.html">DASHBOARD</a></li>
-      <li><a href="feature.html">FEATURES</a></li>
+      <li><a href="/">DASHBOARD</a></li>
+      <li><a href="/feature.html">FEATURES</a></li>
+      <li><a href="/exam">EXAM</a></li>
+      <li><a href="/admin">ADMIN</a></li>
     </ul>
   </nav>
 
@@ -31,11 +33,7 @@
       </div>
     </header>
 
-    <div class="glass-card control-panel" data-aos="zoom-in">
-      <button id="start-guard-ai" class="start-button">INITIALIZE GUARD AI</button>
-      <button id="stop-guard-ai" class="stop-button">TERMINATE SESSION</button>
-      <button id="download-report" class="download-button" disabled>EXPORT REPORT</button>
-    </div>
+
 
     <div class="info-grid">
       <div class="glass-card info-card" data-aos="fade-up" data-aos-delay="100">
@@ -81,46 +79,6 @@
       once: true
     });
 
-    const statusText = document.getElementById("system-status");
-    const downloadButton = document.getElementById("download-report");
-
-    document.getElementById("start-guard-ai").addEventListener("click", () => {
-      statusText.textContent = "INITIALIZING...";
-      fetch("/start-guard-ai", { method: "POST" })
-        .then(r => r.json())
-        .then(data => {
-          if (data.status === "success") {
-            statusText.textContent = "MONITORING ACTIVE";
-            statusText.style.color = "#38ef7d";
-            document.querySelector('.status-dot').style.backgroundColor = "#38ef7d";
-          } else {
-            alert("Error: " + data.message);
-            statusText.textContent = "SYSTEM READY";
-          }
-        })
-        .catch(e => alert("Connection Error: " + e.message));
-    });
-
-    document.getElementById("stop-guard-ai").addEventListener("click", () => {
-      statusText.textContent = "TERMINATING...";
-      fetch("/stop-guard-ai", { method: "POST" })
-        .then(r => r.json())
-        .then(data => {
-          if (data.status === "success") {
-            statusText.textContent = "SESSION ENDED";
-            statusText.style.color = "#ef473a";
-            document.querySelector('.status-dot').style.backgroundColor = "#ef473a";
-            downloadButton.disabled = false;
-          } else {
-            alert("Error: " + data.message);
-          }
-        })
-        .catch(e => alert("Connection Error: " + e.message));
-    });
-
-    document.getElementById("download-report").addEventListener("click", () => {
-      window.location.href = "/download-report";
-    });
   </script>
 </body>
 
