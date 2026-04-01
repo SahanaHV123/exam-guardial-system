@@ -6211,3 +6211,15 @@
 [f198b056] 2026-03-20 19:46:47,545 - 127.0.0.1 - - [20/Mar/2026 19:46:47] "GET /api/get_violations HTTP/1.1" 200 -
 [f198b056] 2026-03-20 19:46:49,540 - 127.0.0.1 - - [20/Mar/2026 19:46:49] "GET /api/get_violations HTTP/1.1" 200 -
 [f198b056] 2026-03-20 19:46:51,530 - 127.0.0.1 - - [20/Mar/2026 19:46:51] "GET /api/get_violations HTTP/1.1" 200 -
+[48b812c4] 2026-04-01 12:21:20,747 - Session report cleared for new session
+[48b812c4] 2026-04-01 12:21:21,217 - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+[48b812c4] 2026-04-01 12:21:21,218 - [33mPress CTRL+C to quit[0m
+[48b812c4] 2026-04-01 12:21:21,223 -  * Restarting with stat
+[36900393] 2026-04-01 12:21:26,747 - Session report cleared for new session
+[36900393] 2026-04-01 12:21:27,018 -  * Debugger is active!
+[36900393] 2026-04-01 12:21:27,049 -  * Debugger PIN: 144-046-754
+[36900393] 2026-04-01 12:21:48,799 - 127.0.0.1 - - [01/Apr/2026 12:21:48] "GET / HTTP/1.1" 200 -
+[36900393] 2026-04-01 12:21:49,433 - 127.0.0.1 - - [01/Apr/2026 12:21:49] "[36mGET /style.css HTTP/1.1[0m" 304 -
+[36900393] 2026-04-01 12:21:49,785 - 127.0.0.1 - - [01/Apr/2026 12:21:49] "[33mGET /favicon.ico HTTP/1.1[0m" 404 -
+[36900393] 2026-04-01 12:23:11,568 - Received signal 2. Initiating graceful shutdown.
