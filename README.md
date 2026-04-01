@@ -6,7 +6,7 @@
 </p>
 
 <p align="center">
-  <img src="https://github.com/user-attachments/assets/af00313d-d908-4364-9fd8-d66df4320906" alt="Guard AI Banner" width="800">
+  <img src="homepage.png" alt="Guard AI Banner" width="800">
 </p>
 
 ---
